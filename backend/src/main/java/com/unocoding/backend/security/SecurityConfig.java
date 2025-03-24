@@ -25,9 +25,6 @@ import com.unocoding.backend.repository.AdminRepository;
 import com.unocoding.backend.repository.ClientRepository;
 import com.unocoding.backend.repository.ProfessionalRepository;
 
-// import com.example.festivalculturale.model.Utente;
-// import com.example.festivalculturale.repository.UtenteRepository;
-
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -39,7 +36,7 @@ public class SecurityConfig {
     private final ProfessionalRepository professionalRepository;
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
     
