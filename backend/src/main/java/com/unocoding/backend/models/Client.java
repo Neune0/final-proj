@@ -1,5 +1,7 @@
 package com.unocoding.backend.models;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "clients")
+@Table(name = "clienti")
 public class Client {
     
     @Id
@@ -20,6 +22,11 @@ public class Client {
     private String password;
 
     private Ruolo ruolo = Ruolo.CLIENT;
+
+    // the client can have a list of appointments with professionals
+    // is relationship is one to many
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Appuntamento> appuntamenti;
 }
 
 
