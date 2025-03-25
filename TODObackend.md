@@ -1,11 +1,58 @@
 # todo backend
 
-1. testare login
-2. implementare funzione logout
-3. test registrazione client e professional
-4. rivedere i servizi chiedere a stefano cosa si aspetta in front
-5. attaccare un oggetto no entity di tipo Calendar ai professional(modifica model): il calendar contiene una lista di ore prenotate e di defualt ogni professional definisce le ore disponibili es. ogni giorno dalle 8 alle 13. serve una strutura dati adatta, anche per essere facilmente visualizzabile lato frontend
-6. implementare lo storico delle prenotaizioni
-7. messaggistica? mi serve un entity listChat probabilmente serve doc su best practice per istant messaging con springboot, probabilemnte il db è troppo lento usare firebase?
-8. esporre end point chiedere a stefano
-9. gestire caso corsa critica tra due client che prenotano lo stesso professianl fare test per capire come spring si comporta di def in questi casi
+1. definire una lista di endpoint che servono al frontend
+
+## Authentication Endpoints
+
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| POST | `/api/auth/login` | Authenticate any user | Public |
+| POST | `/api/auth/register/client` | Register as client | Public |
+| POST | `/api/auth/register/professional` | Register as professional | Public |
+
+## Client Endpoints
+
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | `/api/clients/profile` | Get current client profile | Client |
+| PUT | `/api/clients/profile` | Update current client profile | Client |
+| PUT | `/api/clients/profile/image` | Upload/update profile image | Client |
+| GET | `/api/clients/{id}` | Get client by ID | Admin |
+| GET | `/api/clients` | Get all clients | Admin |
+| DELETE | `/api/clients/{id}` | Delete client | Admin |
+
+## Professional Endpoints
+
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | `/api/professionals` | Get all professionals | Public/Client |
+| GET | `/api/professionals/{id}` | Get professional details | Public/Client |
+| GET | `/api/professionals/search` | Search professionals by criteria | Public/Client |
+| GET | `/api/professionals/profile` | Get current professional profile | Professional |
+| PUT | `/api/professionals/profile` | Update professional profile | Professional |
+| PUT | `/api/professionals/profile/image` | Upload/update profile image | Professional |
+| POST | `/api/professionals/availability` | Add availability slots | Professional |
+| GET | `/api/professionals/availability` | Get own availability | Professional |
+| DELETE | `/api/professionals/availability/{id}` | Remove availability slot | Professional |
+
+## Meeting Request Endpoints
+
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| POST | `/api/requests` | Create meeting request | Client |
+| GET | `/api/requests/sent` | Get requests sent by client | Client |
+| GET | `/api/requests/received` | Get requests received by professional | Professional |
+| GET | `/api/requests/{id}` | Get specific request details | Client/Professional |
+| PUT | `/api/requests/{id}/accept` | Accept request | Professional |
+| PUT | `/api/requests/{id}/reject` | Reject request | Professional |
+| PUT | `/api/requests/{id}/cancel` | Cancel request | Client |
+
+## Admin Endpoints
+
+| Method | Endpoint | Description | Access |
+|--------|----------|-------------|--------|
+| GET | `/api/admin/clients` | Get all clients | Admin |
+| GET | `/api/admin/professionals` | Get all professionals | Admin |
+| GET | `/api/admin/requests` | Get all requests | Admin |
+| DELETE | `/api/admin/users/{id}` | Delete any user | Admin |
+| GET | `/api/admin/stats` | Get system statistics | Admin |
