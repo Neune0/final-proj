@@ -1,0 +1,6 @@
+.main-content {
+    min-height: calc(100vh - 160px); /* Spazio riservato a header + footer */
+    padding: 2rem;
+    background-color: #f7f7f7;
+  }
+  
