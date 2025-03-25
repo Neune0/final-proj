@@ -19,7 +19,6 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -34,19 +33,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // Check if user exists as an Admin
         Admin admin = adminRepository.findByUsername(username).orElse(null);
         if (admin != null) {
-            return buildUserDetails(admin.getUsername(), admin.getPassword(), "ROLE_ADMIN");
+            return buildUserDetails(admin.getUsername(), admin.getPassword(), admin.getRuolo().name());
         }
         
         // Check if user exists as a Client
         Client client = clientRepository.findByUsername(username).orElse(null);
         if (client != null) {
-            return buildUserDetails(client.getUsername(), client.getPassword(), "ROLE_NORMAL_USER");
+            return buildUserDetails(client.getUsername(), client.getPassword(), client.getRuolo().name());
         }
         
         // Check if user exists as a Professional
         Professional professional = professionalRepository.findByUsername(username).orElse(null);
         if (professional != null) {
-            return buildUserDetails(professional.getUsername(), professional.getPassword(), "ROLE_BUSINESS_USER");
+            return buildUserDetails(professional.getUsername(), professional.getPassword(), professional.getRuolo().name());
         }
         
         throw new UsernameNotFoundException("User not found with username: " + username);
