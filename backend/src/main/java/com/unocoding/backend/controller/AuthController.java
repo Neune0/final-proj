@@ -5,79 +5,87 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import com.unocoding.backend.dto.AuthRequest;
+import com.unocoding.backend.dto.AuthResponse;
+import com.unocoding.backend.dto.RegisterRequest;
+import com.unocoding.backend.security.JwtTokenProvider;
 import com.unocoding.backend.service.AdminService;
 import com.unocoding.backend.service.ClientService;
 import com.unocoding.backend.service.ProfessionalService;
 
-import lombok.AllArgsConstructor;
-import java.util.HashMap;
-import java.util.Map;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@AllArgsConstructor
-@RequestMapping("/auth")
+@RequiredArgsConstructor
+@RequestMapping("/api/auth")
 public class AuthController {
 
-    private final ClientService userService;
+    private final ClientService clientService;
     private final AdminService adminService;
     private final ProfessionalService professionalService;
     private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider tokenProvider;
 
-    // admin non si puo registrare solo login
-    // admin non si puo registrare solo login
-    @PostMapping("/login/admin")
-    public ResponseEntity<?> loginAdmin(@RequestParam String username, @RequestParam String password) {
+    @PostMapping("/login")
+    public ResponseEntity<?> authenticateUser(@RequestBody AuthRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password)
+                new UsernamePasswordAuthenticationToken(
+                    loginRequest.getUsername(),
+                    loginRequest.getPassword()
+                )
             );
-            
+
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = tokenProvider.generateToken(authentication);
             
-            // Verifichiamo che sia effettivamente un admin
-            if (authentication.getAuthorities().stream()
-                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-                
-                Map<String, Object> response = new HashMap<>();
-                response.put("message", "Admin login successful");
-                response.put("username", username);
-                response.put("role", "ADMIN");
-                
-                return ResponseEntity.ok(response);
-            } else {
-                return ResponseEntity.status(403).body("User is not an admin");
-            }
+            String role = authentication.getAuthorities().stream()
+                .findFirst()
+                .map(authority -> authority.getAuthority())
+                .orElse("ROLE_UNKNOWN");
+            
+            return ResponseEntity.ok(new AuthResponse(jwt, loginRequest.getUsername(), role));
+            
         } catch (AuthenticationException e) {
-            return ResponseEntity.status(401).body("Invalid username or password");
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
         }
     }
-    // registrazione differenziata tra client e professional, mi servono piu dati per il professional
 
-    // login per tutti ma probabilmente da root diverse vedi lato frontend
+    @PostMapping("/register/client")
+    public ResponseEntity<?> registerClient(@RequestBody RegisterRequest registerRequest) {
+        try {
+            clientService.registerClient(
+                registerRequest.getUsername(),
+                registerRequest.getPassword(),
+                registerRequest.getEmail(),
+                registerRequest.getFirstName(),
+                registerRequest.getLastName()
+            );
+            
+            return ResponseEntity.ok("Client registered successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
 
-
-    // @PostMapping("/register/employee")
-    // public String registerEmployee(@RequestParam String username, @RequestParam String password, 
-    //                                @RequestParam String department) {
-    //     userService.registerEmployee(username, password, department);
-    //     return "Employee registered successfully";
-    // }
-
-    // @PostMapping("/register/customer")
-    // public String registerCustomer(@RequestParam String username, @RequestParam String password, 
-    //                                @RequestParam String address) {
-    //     userService.registerCustomer(username, password, address);
-    //     return "Customer registered successfully";
-    // }
-
-    // @PostMapping("/login")
-    // public String login(@RequestParam String username, @RequestParam String password) {
-    //     Authentication authentication = authenticationManager.authenticate(
-    //         new UsernamePasswordAuthenticationToken(username, password)
-    //     );
-    //     return authentication.isAuthenticated() ? "Login successful" : "Login failed";
-    // }
+    @PostMapping("/register/professional")
+    public ResponseEntity<?> registerProfessional(@RequestBody RegisterRequest registerRequest) {
+        try {
+            professionalService.registerProfessional(
+                registerRequest.getUsername(),
+                registerRequest.getPassword(),
+                registerRequest.getEmail(),
+                registerRequest.getProfession(), 
+                registerRequest.getCompany()
+            );
+            
+            return ResponseEntity.ok("Professional registered successfully");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error: " + e.getMessage());
+        }
+    }
 }
