@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "clienti")
 public class Client {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,10 +26,11 @@ public class Client {
 
     private Ruolo ruolo = Ruolo.CLIENT;
 
-    // the client can have a list of appointments with professionals
-    // is relationship is one to many
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
-    private List<Appuntamento> appuntamenti;
+    private List<PendingRequest> sentRequests;
+
+    @Column(name = "profile_image", columnDefinition = "LONGTEXT")
+    private String profileImageBase64;
 
     public Client(String username, String password, String email, String firstName, String lastName) {
         this.username = username;
@@ -39,8 +40,3 @@ public class Client {
         this.lastName = lastName;
     }
 }
-
-
-
-
-

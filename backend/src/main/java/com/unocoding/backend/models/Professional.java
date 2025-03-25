@@ -22,17 +22,21 @@ public class Professional {
     private String email;
     private String profession;
     private String company;
+    private double pricePerHour;
+    private String description;
+
+    @Column(name = "profile_image", columnDefinition = "LONGTEXT")
+    private String profileImageBase64;
 
     private Ruolo ruolo = Ruolo.PROFESSIONAL;
+
+    // richieste di appuntamento ricevute
+    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
+    private List<PendingRequest> pendingRequests;
 
     @ElementCollection
     @CollectionTable(name = "professional_disponibilita", joinColumns = @JoinColumn(name = "professional_id"))
     private List<Disponibilita> disponibilita;
-
-    // the professional can have a list of appointments with clients
-    // is relationship is one to many
-    @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
-    private List<Appuntamento> appuntamenti;
 
     public Professional(String username, String password, String email, String profession, String company) {
         this.username = username;
