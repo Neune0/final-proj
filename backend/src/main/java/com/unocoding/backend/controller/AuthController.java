@@ -5,7 +5,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +12,6 @@ import com.unocoding.backend.dto.AuthRequest;
 import com.unocoding.backend.dto.AuthResponse;
 import com.unocoding.backend.dto.RegisterRequest;
 import com.unocoding.backend.security.JwtTokenProvider;
-import com.unocoding.backend.service.AdminService;
 import com.unocoding.backend.service.ClientService;
 import com.unocoding.backend.service.ProfessionalService;
 
@@ -25,7 +23,6 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
     private final ClientService clientService;
-    private final AdminService adminService;
     private final ProfessionalService professionalService;
     private final AuthenticationManager authenticationManager;
     private final JwtTokenProvider tokenProvider;

@@ -30,24 +30,26 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // Check if user exists as an Admin
+        
+        // user is an admin?
         Admin admin = adminRepository.findByUsername(username).orElse(null);
         if (admin != null) {
             return buildUserDetails(admin.getUsername(), admin.getPassword(), admin.getRuolo().name());
         }
         
-        // Check if user exists as a Client
+        // user is a client?
         Client client = clientRepository.findByUsername(username).orElse(null);
         if (client != null) {
             return buildUserDetails(client.getUsername(), client.getPassword(), client.getRuolo().name());
         }
         
-        // Check if user exists as a Professional
+        // user is a professional?
         Professional professional = professionalRepository.findByUsername(username).orElse(null);
         if (professional != null) {
             return buildUserDetails(professional.getUsername(), professional.getPassword(), professional.getRuolo().name());
         }
         
+        // user not found
         throw new UsernameNotFoundException("User not found with username: " + username);
     }
     
