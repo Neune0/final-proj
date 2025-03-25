@@ -20,6 +20,9 @@ public class Client {
 
     private String username;
     private String password;
+    private String email;
+    private String firstName;
+    private String lastName;
 
     private Ruolo ruolo = Ruolo.CLIENT;
 
@@ -27,6 +30,14 @@ public class Client {
     // is relationship is one to many
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Appuntamento> appuntamenti;
+
+    public Client(String username, String password, String email, String firstName, String lastName) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 }
 
 
