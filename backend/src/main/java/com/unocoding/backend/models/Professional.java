@@ -22,6 +22,8 @@ public class Professional {
 
     private Ruolo ruolo = Ruolo.PROFESSIONAL;
 
+    private List<Disponibilita> disponibilita;
+
    // the professional can have a list of appointments with clients
     // is relationship is one to many
     @OneToMany(mappedBy = "professional", cascade = CascadeType.ALL)
