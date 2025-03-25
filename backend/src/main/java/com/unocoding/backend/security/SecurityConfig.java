@@ -41,53 +41,41 @@ public class SecurityConfig {
     }
     
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        return username -> {
-            // Cerca prima tra gli admin
-            Optional<Admin> admin = adminRepository.findByUsername(username);
-            if (admin.isPresent()) {
-                return buildUserDetails(admin.get().getUsername(), admin.get().getPassword(), 
-                                      admin.get().getRuolo().toString());
-            }
-            
-            // Poi cerca tra i client e professional se necessario
-            // [Qui implementazione per gli altri tipi di utente]
-            
-            throw new UsernameNotFoundException("Utente non trovato: " + username);
-        };
-    }
-
-    private UserDetails buildUserDetails(String username, String password, String role) {
-        GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + role);
-        return new org.springframework.security.core.userdetails.User(
-            username, password, Collections.singletonList(authority));
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService());
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    }
-
-    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
+            // Rimuovere la configurazione CORS qui poiché viene gestita dal bean globale
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/**", "/api/public/**").permitAll()
-                .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated())
-            .authenticationProvider(authenticationProvider());
-
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/public/**").permitAll()
+                .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
+                .requestMatchers("/api/business/**").hasAuthority("ROLE_BUSINESS_USER")
+                .requestMatchers("/api/user/**").hasAuthority("ROLE_NORMAL_USER")
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginProcessingUrl("/api/auth/login")
+                .successHandler((request, response, authentication) -> {
+                    response.setStatus(200);
+                })
+                .failureHandler((request, response, exception) -> {
+                    response.setStatus(401);
+                })
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/api/auth/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessHandler((request, response, authentication) -> {
+                    response.setStatus(200);
+                })
+            );
+        
         return http.build();
     }
+    
+   
 
     
 }
