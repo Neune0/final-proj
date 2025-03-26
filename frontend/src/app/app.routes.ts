@@ -1,17 +1,17 @@
 import { Routes } from '@angular/router';
-// import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageComponent } from './pages/login-page/login-page.component';
 // import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { authGuard } from './guards/authGuard';
 import { roleGuard } from './guards/roleGuard';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
 // import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
     // Route pubbliche
     {path: '', redirectTo: '/home', pathMatch: 'full'},
     {path: 'register', component: RegisterPageComponent},
-    // {path: 'home', component: HomePageComponent},
+    {path: 'home', component: HomePageComponent},
     {path: 'login', component: LoginPageComponent},
     // {path: 'register', component: RegisterPageComponent},
     // {path: 'unauthorized', component: UnauthorizedComponent},
