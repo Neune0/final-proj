@@ -1,15 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './pages/home/home.component';
-import { ClientRoutingModule } from './client-routing.module'; // <--- aggiungi questo
+import { ClientRoutingModule } from './client-routing.module';  // Importa ClientRoutingModule
+import { ServiceCardComponent } from './components/service-card/service-card.component';
+import { HomeComponent } from './pages/home/home.component';  // Importa HomeComponent
+import { ServizioComponent } from './servizio/servizio.component';  // Importa ServizioComponent
 
 @NgModule({
   declarations: [
-    HomeComponent
+    ServiceCardComponent,
+    HomeComponent,
+    ServizioComponent  // Dichiara ServizioComponent qui
   ],
   imports: [
     CommonModule,
-    ClientRoutingModule // <--- aggiungi qui
+    ClientRoutingModule  // Importa ClientRoutingModule
   ]
 })
 export class ClientModule { }

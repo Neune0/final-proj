@@ -1,7 +1,39 @@
-<app-header></app-header>
+<nav class="navbar">
+  <div class="navbar-brand">
+    <img src="assets/img/Logo.png" style="width: 100px;" alt="Test Logo" class="logo"> <!-- Logo -->
+  </div>
+  <ul class="navbar-menu">
+    <li class="navbar-item">
+      <button class="dropdown-btn">Servizi</button>
+      <div class="dropdown-content">
+        <a [routerLink]="['/servizi/sviluppo-frontend']">Sviluppo Frontend</a>
+        <a [routerLink]="['/servizi/sviluppo-backend']">Sviluppo Backend</a>
+        <a [routerLink]="['/servizi/gestione-database']">Gestione Database</a>
+        <a [routerLink]="['/servizi/marketing']">Marketing</a>
+      </div>
+    </li>
+    <li class="navbar-item">
+      <button class="dropdown-btn">Professionisti</button>
+      <div class="dropdown-content">
+        <a [routerLink]="['/professionisti']">Tutti i professionisti</a>
+      </div>
+    </li>
+    <li class="navbar-item">
+      <button class="dropdown-btn">Docenti</button>
+      <div class="dropdown-content">
+        <a [routerLink]="['/docenti']">Tutti i docenti</a>
+      </div>
+    </li>
+  </ul>
+</nav>
 
-<main class="main-content">
-  <router-outlet></router-outlet>
-</main>
-
-<app-footer></app-footer>
+<!-- Sezione di presentazione del prodotto -->
+<section class="product-presentation">
+  <div class="presentation-content">
+    <h1 class="product-title">Scopri i nostri servizi IT innovativi</h1>
+    <p class="product-description">
+      Siamo una piattaforma che offre servizi IT all'avanguardia per la creazione di applicazioni scalabili, consulenze personalizzate e soluzioni backend robuste. Se stai cercando un partner affidabile per il tuo prossimo progetto, sei nel posto giusto. Dai uno sguardo ai nostri servizi professionali, dove qualità e innovazione si incontrano.
+    </p>
+    <button class="cta-btn">Scopri di più</button>
+  </div>
+</section>

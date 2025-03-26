@@ -1,1 +1,7 @@
-<p>home works!</p>
+<h2>I nostri servizi IT</h2>
+
+<div class="grid">
+  <app-service-card *ngFor="let s of services" [service]="s"></app-service-card>
+</div>
+
+<p *ngIf="services.length === 0">Nessun servizio disponibile.</p>

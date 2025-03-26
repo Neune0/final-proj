@@ -1,6 +1,170 @@
-.main-content {
-    min-height: calc(100vh - 160px); /* Spazio riservato a header + footer */
-    padding: 2rem;
-    background-color: #f7f7f7;
+/* Navbar principale */
+.navbar {
+    background: linear-gradient(135deg, #c4bae4, #c7e3c7); /* Sfumato viola-verde chiaro */
+    padding: 8px 30px; /* Ridotto il padding per una navbar più sottile */
+    display: flex;
+    justify-content: space-between; /* Allinea logo e menu separati */
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Aggiunta ombra per un effetto più elegante */
+    border-radius: 15px;
+  }
+  
+  /* Contenitore solo per il logo */
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Allinea il logo a sinistra */
+  }
+  
+  .logo {
+    width: 120px !important;  /* Logo più grande per maggiore visibilità */
+    height: auto;  /* Manteniamo la proporzione dell'immagine */
+  }
+  
+  /* Navbar menu: Allineiamo a destra */
+  .navbar-menu {
+    list-style-type: none;
+    display: flex;
+    gap: 30px; /* Maggiore spazio tra le voci */
+    align-items: center; /* Allinea i bottoni con il logo */
+    justify-content: flex-end; /* Allinea il menu a destra */
+    flex-grow: 1; /* Assicura che il menu si estenda sulla navbar */
+  }
+  
+  .navbar-item {
+    position: relative;
+  }
+  
+  /* Bottoni per il dropdown */
+  .dropdown-btn {
+    background-color: #7369de; /* Viola scuro */
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15); /* Ombra più sottile per effetto 3D */
+  }
+  
+  .dropdown-btn:hover {
+    background-color: #4CAF50; /* Cambio colore al passaggio */
+    transform: translateY(-4px); /* Leggera animazione per il bottone */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Aggiunta di un'ombra più evidente */
+  }
+  
+  /* Contenuto del menu a tendina */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 200px;
+    z-index: 1;
+    top: 50px;
+    left: 0;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  }
+  
+  .dropdown-content a {
+    color: white;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-size: 1rem;
+    font-weight: 400;
+    transition: background-color 0.2s ease;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #4CAF50; /* Verde brillante al passaggio */
+  }
+  
+  /* Mostra il menu a tendina al passaggio sopra */
+  .navbar-item:hover .dropdown-content {
+    display: block;
+  }
+  
+  /* Rimuoviamo la spunta */
+  .checkmark {
+    display: none;
+  }
+  
+  /* Transizione per il bottone */
+  .navbar-item:hover .dropdown-btn {
+    transform: scale(1.05);  /* Zoom leggero quando hover */
+  }
+  
+  /* Sezione di presentazione del prodotto */
+  .product-presentation {
+    background-color: #f4f4f4; /* Colore di sfondo chiaro per il contrasto */
+    padding: 50px 30px; /* Aggiungi un po' di spazio attorno alla sezione */
+    text-align: center; /* Allinea il contenuto al centro */
+  }
+  
+  .presentation-content {
+    max-width: 800px; /* Limita la larghezza della sezione */
+    margin: 0 auto; /* Centra la sezione orizzontalmente */
+  }
+  
+  .product-title {
+    font-size: 2.5rem; /* Grande titolo per la sezione */
+    font-weight: 700;
+    color: #2f2f2f; /* Colore scuro per il titolo */
+    margin-bottom: 20px;
+  }
+  
+  .product-description {
+    font-size: 1.2rem; /* Dimensione del testo più piccola per la descrizione */
+    color: #555; /* Colore del testo più chiaro */
+    line-height: 1.6;
+    margin-bottom: 30px;
+    max-width: 700px; /* Limita la larghezza del testo per una lettura migliore */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .cta-btn {
+    background-color: #7369de; /* Colore del bottone coerente con la navbar */
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .cta-btn:hover {
+    background-color: #4CAF50; /* Colore più brillante al passaggio */
+    transform: translateY(-4px); /* Leggera animazione per il bottone */
+  }
+  
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .navbar-menu {
+      flex-direction: column;
+      gap: 15px;
+      padding-top: 15px;
+    }
+    .navbar-item {
+      width: 100%;
+      text-align: center;
+    }
+  
+    .product-presentation {
+      padding: 30px 15px;
+    }
+  
+    .product-title {
+      font-size: 2rem; /* Ridotto il titolo su dispositivi più piccoli */
+    }
+  
+    .product-description {
+      font-size: 1.1rem; /* Ridotto il testo su dispositivi più piccoli */
+    }
   }
   
