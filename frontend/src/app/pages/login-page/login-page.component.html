@@ -1,35 +1,75 @@
-<div class="login-container">
-    <h2>Accedi</h2>
-    
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="login-card shadow">
+        <div class="login-header text-center mb-4">
+          <h2 class="mb-1">Accedi</h2>
+          <p class="text-muted">Inserisci le tue credenziali per continuare</p>
+        </div>
+        
+        <div *ngIf="errorMessage" class="alert alert-danger" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i>
+          {{ errorMessage }}
+        </div>
+        
+        <form (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+              <input 
+                type="text" 
+                class="form-control"
+                id="username" 
+                name="username" 
+                placeholder="Inserisci username"
+                [(ngModel)]="username" 
+                required>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+              <input 
+                type="password" 
+                class="form-control"
+                id="password" 
+                name="password" 
+                placeholder="Inserisci password"
+                [(ngModel)]="password" 
+                required>
+            </div>
+          </div>
+          
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Ricordami</label>
+            <a href="#" class="float-end text-decoration-none">Password dimenticata?</a>
+          </div>
+          
+          <div class="d-grid gap-2 mt-4">
+            <button type="submit" class="btn btn-primary btn-lg" [disabled]="loading">
+              <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              {{ loading ? 'Accesso in corso...' : 'Accedi' }}
+            </button>
+          </div>
+        </form>
+        
+        <div class="text-center mt-4">
+          <p class="mb-0">Non hai un account? <a routerLink="/register" class="fw-bold text-decoration-none">Registrati</a></p>
+        </div>
+
+        <div class="mt-4 text-center">
+          <p class="text-muted">oppure accedi con</p>
+          <div class="social-buttons">
+            <button class="btn btn-outline-secondary me-2"><i class="bi bi-google"></i></button>
+            <button class="btn btn-outline-secondary me-2"><i class="bi bi-facebook"></i></button>
+            <button class="btn btn-outline-secondary"><i class="bi bi-linkedin"></i></button>
+          </div>
+        </div>
+      </div>
     </div>
-    
-    <form (ngSubmit)="onSubmit()">
-      <div class="form-group">
-        <label for="username">Username</label>
-        <input 
-          type="text" 
-          id="username" 
-          name="username" 
-          [(ngModel)]="username" 
-          required>
-      </div>
-      
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input 
-          type="password" 
-          id="password" 
-          name="password" 
-          [(ngModel)]="password" 
-          required>
-      </div>
-      
-      <button type="submit" [disabled]="loading">
-        {{ loading ? 'Accesso in corso...' : 'Accedi' }}
-      </button>
-    </form>
-    
-    <p>Non hai un account? <a routerLink="/register">Registrati</a></p>
   </div>
+</div>
