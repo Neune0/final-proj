@@ -34,10 +34,11 @@ export class AuthService {
       .pipe(
         map(response => {
           // Trasforma la risposta nel formato User
+          console.log(response);
           const user: User = {
             username: response.username,
             role: response.role,
-            token: response.token
+            token: response.accessToken
           };
           
           // Salva nel localStorage e aggiorna il BehaviorSubject
