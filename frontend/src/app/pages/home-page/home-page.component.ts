@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { NavBarComponent } from '../../layout/nav-bar/nav-bar.component';
+import {FooterComponent} from '../../layout/footer/footer.component';
+
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-  imports: [CommonModule, RouterLink, NavBarComponent],
+  imports: [CommonModule, RouterLink, NavBarComponent, FooterComponent],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
