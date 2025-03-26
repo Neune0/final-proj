@@ -1,0 +1,314 @@
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="assets/img/Logo.png" alt="IT Marketplace" class="sidebar-logo">
+        <h4>IT Marketplace</h4>
+      </div>
+      
+      <div class="sidebar-profile">
+        <div class="profile-image">
+          <img [src]="clientProfile?.profileImage || 'assets/img/default-avatar.png'" alt="Profile">
+        </div>
+        <div class="profile-info">
+          <h5>{{ clientProfile?.firstName || 'Utente' }} {{ clientProfile?.lastName || 'Cliente' }}</h5>
+          <span class="badge bg-primary">Cliente</span>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active">
+            <a routerLink="/client">
+              <i class="bi bi-house-door-fill"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/client/professionals">
+              <i class="bi bi-people-fill"></i>
+              <span>Professionisti</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/client/requests">
+              <i class="bi bi-calendar-check-fill"></i>
+              <span>Le mie richieste</span>
+              <span *ngIf="pendingRequests.length > 0" class="badge bg-danger notification">
+                {{ pendingRequests.length }}
+              </span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/client/profile">
+              <i class="bi bi-person-fill"></i>
+              <span>Profilo</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/client/messages">
+              <i class="bi bi-chat-dots-fill"></i>
+              <span>Messaggi</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/client/favorites">
+              <i class="bi bi-bookmark-heart-fill"></i>
+              <span>Preferiti</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <button (click)="logout()" class="btn btn-outline-danger btn-sm">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      </div>
+    </aside>
+  
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top Bar -->
+      <header class="top-bar">
+        <div class="search-container">
+          <form (ngSubmit)="searchProfessionals()">
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-search"></i></span>
+              <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Cerca professionisti IT..." 
+                [(ngModel)]="searchTerm"
+                name="searchTerm">
+              <select class="form-select" [(ngModel)]="selectedCategory" name="selectedCategory">
+                <option value="">Tutte le categorie</option>
+                <option *ngFor="let category of categories" [value]="category">{{category}}</option>
+              </select>
+              <button class="btn btn-primary" type="submit">Cerca</button>
+            </div>
+          </form>
+        </div>
+        
+        <div class="user-actions">
+          <div class="notification-icon">
+            <i class="bi bi-bell-fill"></i>
+            <span class="notification-badge" *ngIf="pendingRequests.length > 0">{{ pendingRequests.length }}</span>
+          </div>
+          <div class="user-info">
+            <div class="user-details">
+              <h6>{{ clientProfile?.firstName }} {{ clientProfile?.lastName }}</h6>
+              <span>{{ clientProfile?.email }}</span>
+            </div>
+            <div class="user-avatar">
+              <img [src]="clientProfile?.profileImage || 'assets/img/default-avatar.png'" alt="User Avatar">
+            </div>
+          </div>
+        </div>
+      </header>
+      
+      <!-- Dashboard Content -->
+      <div class="dashboard-content">
+        <!-- Welcome Card -->
+        <section class="welcome-card">
+          <div class="row">
+            <div class="col-md-8">
+              <h2>Benvenuto, {{ clientProfile?.firstName || 'Utente' }}!</h2>
+              <p>Trova il professionista IT ideale per le tue esigenze. Abbiamo professionisti qualificati pronti ad aiutarti.</p>
+              <button routerLink="/client/professionals" class="btn btn-primary mt-3">
+                <i class="bi bi-search me-2"></i>Trova professionisti
+              </button>
+            </div>
+            <div class="col-md-4 text-center d-none d-md-block">
+              <img src="assets/img/welcome-illustration.svg" alt="Welcome" class="welcome-image">
+            </div>
+          </div>
+        </section>
+        
+        <!-- Stats Cards -->
+        <section class="stats-section">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="stats-card">
+                <div class="stats-icon">
+                  <i class="bi bi-calendar-check"></i>
+                </div>
+                <div class="stats-info">
+                  <h4>{{ pendingRequests.length }}</h4>
+                  <p>Richieste in attesa</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stats-card">
+                <div class="stats-icon">
+                  <i class="bi bi-people"></i>
+                </div>
+                <div class="stats-info">
+                  <h4>{{ featuredProfessionals.length }}</h4>
+                  <p>Professionisti disponibili</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stats-card">
+                <div class="stats-icon">
+                  <i class="bi bi-check-circle"></i>
+                </div>
+                <div class="stats-info">
+                  <h4>0</h4>
+                  <p>Progetti completati</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Featured Professionals -->
+        <section class="professionals-section">
+          <div class="section-header">
+            <h3>Professionisti in Evidenza</h3>
+            <a routerLink="/client/professionals" class="btn btn-sm btn-outline-primary">
+              Vedi tutti <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-6 col-lg-3" *ngFor="let professional of featuredProfessionals">
+              <div class="professional-card">
+                <div class="professional-header">
+                  <div class="professional-avatar">
+                    <img [src]="professional.profileImage || 'assets/img/default-avatar.png'" alt="{{ professional.username }}">
+                  </div>
+                  <h5>{{ professional.username }}</h5>
+                  <p>{{ professional.profession }}</p>
+                  <div class="rating">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-half"></i>
+                    <span>4.5</span>
+                  </div>
+                </div>
+                <div class="professional-body">
+                  <p class="company" *ngIf="professional.company">
+                    <i class="bi bi-building me-2"></i>{{ professional.company }}
+                  </p>
+                  <div class="skills">
+                    <span class="skill-tag" *ngFor="let skill of professional.skills?.slice(0, 3)">
+                      {{ skill }}
+                    </span>
+                    <span class="more-skills" *ngIf="professional.skills?.length > 3">
+                      +{{ professional.skills.length - 3 }}
+                    </span>
+                  </div>
+                </div>
+                <div class="professional-footer">
+                  <a [routerLink]="['/client/professionals', professional.id]" class="btn btn-outline-primary btn-sm">
+                    Visualizza profilo
+                  </a>
+                  <button class="btn btn-primary btn-sm">
+                    Richiedi consulenza
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Recent Requests -->
+        <section class="requests-section">
+          <div class="section-header">
+            <h3>Richieste Recenti</h3>
+            <a routerLink="/client/requests" class="btn btn-sm btn-outline-primary">
+              Vedi tutte <i class="bi bi-arrow-right ms-1"></i>
+            </a>
+          </div>
+          
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Professionista</th>
+                  <th>Servizio</th>
+                  <th>Data</th>
+                  <th>Stato</th>
+                  <th>Azioni</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngIf="pendingRequests.length === 0">
+                  <td colspan="5" class="text-center py-4">
+                    <p class="mb-0">Non hai ancora richieste di consulenza.</p>
+                    <a routerLink="/client/professionals" class="btn btn-sm btn-primary mt-2">
+                      Trova un professionista
+                    </a>
+                  </td>
+                </tr>
+                <tr *ngFor="let request of pendingRequests">
+                  <td>
+                    <div class="d-flex align-items-center">
+                      <img 
+                        [src]="request.professionalImage || 'assets/img/default-avatar.png'" 
+                        alt="Professional"
+                        class="request-avatar me-2">
+                      {{ request.professionalName }}
+                    </div>
+                  </td>
+                  <td>{{ request.service }}</td>
+                  <td>{{ request.date | date:'dd/MM/yyyy HH:mm' }}</td>
+                  <td>
+                    <span class="badge" [ngClass]="{
+                      'bg-warning': request.status === 'PENDING',
+                      'bg-success': request.status === 'ACCEPTED',
+                      'bg-danger': request.status === 'REJECTED'
+                    }">
+                      {{ request.status }}
+                    </span>
+                  </td>
+                  <td>
+                    <button class="btn btn-sm btn-outline-primary me-1">
+                      <i class="bi bi-eye"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger">
+                      <i class="bi bi-trash"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+        <!-- Categories Section -->
+        <section class="categories-section">
+          <div class="section-header">
+            <h3>Categorie di Servizi</h3>
+          </div>
+          
+          <div class="row">
+            <div class="col-md-4 col-lg-3" *ngFor="let category of categories">
+              <div class="category-card">
+                <div class="category-icon">
+                  <i class="bi" [ngClass]="
+                    category === 'Sviluppo Web' ? 'bi-globe' :
+                    category === 'Sviluppo Mobile' ? 'bi-phone' :
+                    category === 'Cybersecurity' ? 'bi-shield-lock' :
+                    category === 'Cloud Services' ? 'bi-cloud' :
+                    category === 'Data Science' ? 'bi-graph-up' :
+                    category === 'DevOps' ? 'bi-gear' :
+                    category === 'UI/UX Design' ? 'bi-palette' :
+                    category === 'Reti e Infrastrutture' ? 'bi-hdd-network' :
+                    'bi-briefcase'
+                  "></i>
+                </div>
+                <h4>{{ category }}</h4>
+                <a class="stretched-link" [routerLink]="['/client/professionals']" [queryParams]="{category: category}"></a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>

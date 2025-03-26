@@ -9,7 +9,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" routerLink="/">Home</a>
+            <a class="nav-link cursor-pointer" routerLink="/login">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/services">Servizi</a>
@@ -18,10 +18,10 @@
             <a class="nav-link" routerLink="/professionals">Professionisti</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/about">Chi Siamo</a>
+            <a class="nav-link" activatedRoute  routerLink="/about">Chi Siamo</a>
           </li>
-          <li class="nav-item ms-lg-3">
-            <a class="btn btn-outline-primary" routerLink="/login">Accedi</a>
+          <li class="nav-item ms-lg-3" >
+            <button routerLink="/login" class="btn btn-outline-primary">Accedi</button>
           </li>
           <li class="nav-item ms-2">
             <a class="btn btn-primary" routerLink="/register">Registrati</a>
