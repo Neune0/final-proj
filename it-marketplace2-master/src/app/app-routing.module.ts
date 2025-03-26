@@ -1,9 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-// Rimuovi il `ServizioComponent` dall'importazione
-// Invece, lascia che venga gestito da ClientModule tramite lazy loading
-
 const routes: Routes = [
   {
     path: '',
