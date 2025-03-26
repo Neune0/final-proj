@@ -50,28 +50,4 @@ public class ClientController {
         return ResponseEntity.ok(updatedProfile);
     }
 
-    // Admin endpoints below
-    
-    // Get client by ID (Admin only)
-    @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<ClientProfileDto> getClientById(@PathVariable Long id) {
-        ClientProfileDto client = clientService.getClientById(id);
-        return ResponseEntity.ok(client);
-    }
-
-    // Get all clients (Admin only)
-    @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> getAllClients() {
-        return ResponseEntity.ok(clientService.getAllClients());
-    }
-
-    // Delete client (Admin only)
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<?> deleteClient(@PathVariable Long id) {
-        clientService.deleteClient(id);
-        return ResponseEntity.ok("Client deleted successfully");
-    }
 }

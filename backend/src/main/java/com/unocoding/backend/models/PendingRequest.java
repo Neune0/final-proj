@@ -34,8 +34,4 @@ public class PendingRequest {
     private RequestStatus status = RequestStatus.PENDING;
 }
 
-enum RequestStatus {
-    PENDING,
-    ACCEPTED,
-    REJECTED
-}
+

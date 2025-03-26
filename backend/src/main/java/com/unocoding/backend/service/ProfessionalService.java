@@ -31,6 +31,14 @@ public class ProfessionalService {
         professionalRepository.save(new Professional(username, passwordEncoder.encode(password), email, profession, company));
         
     }
+
+    public void deleteProfessional(Long id) {
+        if (!professionalRepository.existsById(id)) {
+            throw new RuntimeException("Professional not found");
+        }
+        professionalRepository.deleteById(id);
+    }
+    
     public List<ProfessionalProfileDto> getAllProfessionals() {
         return professionalRepository.findAll().stream()
                 .map(this::mapProfessionalToDto)
