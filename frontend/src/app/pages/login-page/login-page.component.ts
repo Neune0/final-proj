@@ -16,16 +16,13 @@ export class LoginPageComponent {
   password: string = '';
   loading: boolean = false;
   errorMessage: string = '';
-  returnUrl: string = '/';
+  returnUrl: string = '/client';
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {
+  constructor(private authService: AuthService,private router: Router,private route: ActivatedRoute) {
+    
     // Prendi l'URL di ritorno dai query params
     this.route.queryParams.subscribe((params) => {
-      this.returnUrl = params['returnUrl'] || '/';
+      this.returnUrl = params['returnUrl'] || '/client';
     });
 
     // Se già autenticato, reindirizza
@@ -40,6 +37,7 @@ export class LoginPageComponent {
 
     this.authService.login(this.username, this.password).subscribe({
       next: () => {
+        console.log("login success redirect to returnUrl: "+this.returnUrl);
         this.router.navigateByUrl(this.returnUrl);
       },
       error: (error) => {

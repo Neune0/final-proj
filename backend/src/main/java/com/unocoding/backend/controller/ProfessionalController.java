@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/professionals")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProfessionalController {
 
     private final ProfessionalService professionalService;
@@ -28,18 +28,21 @@ public class ProfessionalController {
     // Public endpoints
     
     @GetMapping
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<ProfessionalProfileDto>> getAllProfessionals() {
         List<ProfessionalProfileDto> professionals = professionalService.getAllProfessionals();
         return ResponseEntity.ok(professionals);
     }
 
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ProfessionalProfileDto> getProfessionalById(@PathVariable Long id) {
         ProfessionalProfileDto professional = professionalService.getProfessionalById(id);
         return ResponseEntity.ok(professional);
     }
 
     @GetMapping("/search")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<ProfessionalProfileDto>> searchProfessionals(SearchProfessionalDto searchCriteria) {
         List<ProfessionalProfileDto> results = professionalService.searchProfessionals(searchCriteria);
         return ResponseEntity.ok(results);
@@ -49,6 +52,7 @@ public class ProfessionalController {
     
     @GetMapping("/profile")
     @PreAuthorize("hasAuthority('PROFESSIONAL')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ProfessionalProfileDto> getCurrentProfessionalProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -58,6 +62,7 @@ public class ProfessionalController {
 
     @PutMapping("/profile")
     @PreAuthorize("hasAuthority('PROFESSIONAL')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ProfessionalProfileDto> updateProfessionalProfile(
             @RequestBody UpdateProfessionalProfileDto updateDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -68,6 +73,7 @@ public class ProfessionalController {
 
     @PutMapping("/profile/image")
     @PreAuthorize("hasAuthority('PROFESSIONAL')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ProfessionalProfileDto> updateProfileImage(@RequestBody String profileImageBase64) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -77,6 +83,7 @@ public class ProfessionalController {
 
     @PostMapping("/availability")
     @PreAuthorize("hasAuthority('PROFESSIONAL')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ProfessionalProfileDto> addAvailability(@RequestBody AvailabilityDto availabilityDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -86,6 +93,7 @@ public class ProfessionalController {
 
     @GetMapping("/availability")
     @PreAuthorize("hasAuthority('PROFESSIONAL')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<Disponibilita>> getAvailability() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -95,6 +103,7 @@ public class ProfessionalController {
 
     @DeleteMapping("/availability/{index}")
     @PreAuthorize("hasAuthority('PROFESSIONAL')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ProfessionalProfileDto> removeAvailability(@PathVariable int index) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();

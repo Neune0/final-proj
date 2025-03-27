@@ -20,7 +20,7 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/admin")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 @PreAuthorize("hasAuthority('ADMIN')")
 public class AdminController {
 
@@ -31,16 +31,19 @@ public class AdminController {
     // CLIENT MANAGEMENT
 
     @GetMapping("/clients")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<ClientProfileDto>> getAllClients() {
         return ResponseEntity.ok(clientService.getAllClients());
     }
 
     @GetMapping("/clients/{id}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ClientProfileDto> getClientById(@PathVariable Long id) {
         return ResponseEntity.ok(clientService.getClientById(id));
     }
 
     @DeleteMapping("/clients/{id}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<?> deleteClient(@PathVariable Long id) {
         clientService.deleteClient(id);
         return ResponseEntity.ok("Client deleted successfully");
@@ -49,16 +52,19 @@ public class AdminController {
     // PROFESSIONAL MANAGEMENT
 
     @GetMapping("/professionals")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<ProfessionalProfileDto>> getAllProfessionals() {
         return ResponseEntity.ok(professionalService.getAllProfessionals());
     }
 
     @GetMapping("/professionals/{id}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ProfessionalProfileDto> getProfessionalById(@PathVariable Long id) {
         return ResponseEntity.ok(professionalService.getProfessionalById(id));
     }
 
     @DeleteMapping("/professionals/{id}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<?> deleteProfessional(@PathVariable Long id) {
         professionalService.deleteProfessional(id);
         return ResponseEntity.ok("Professional deleted successfully");
@@ -67,11 +73,13 @@ public class AdminController {
     // REQUEST MANAGEMENT
 
     @GetMapping("/requests")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<MeetingRequestDto>> getAllRequests() {
         return ResponseEntity.ok(pendingRequestService.getAllRequests());
     }
 
     @DeleteMapping("/requests/{id}")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<?> deleteRequest(@PathVariable Long id) {
         pendingRequestService.deleteRequest(id);
         return ResponseEntity.ok("Request deleted successfully");
@@ -80,6 +88,7 @@ public class AdminController {
     // DASHBOARD AND STATISTICS
 
     @GetMapping("/stats")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<Map<String, Object>> getSystemStats() {
         Map<String, Object> stats = new HashMap<>();
         

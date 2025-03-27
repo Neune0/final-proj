@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/requests")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class PendingRequestController {
 
     private final PendingRequestService pendingRequestService;
@@ -26,6 +26,7 @@ public class PendingRequestController {
     // Client creates a meeting request
     @PostMapping
     @PreAuthorize("hasAuthority('CLIENT')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<MeetingRequestDto> createRequest(@RequestBody CreateMeetingRequestDto createDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -35,6 +36,7 @@ public class PendingRequestController {
     // Client gets their requests
     @GetMapping("/client")
     @PreAuthorize("hasAuthority('CLIENT')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<MeetingRequestDto>> getClientRequests() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -44,6 +46,7 @@ public class PendingRequestController {
     // Professional gets their requests
     @GetMapping("/professional")
     @PreAuthorize("hasAuthority('PROFESSIONAL')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<List<MeetingRequestDto>> getProfessionalRequests() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -53,6 +56,7 @@ public class PendingRequestController {
     // Professional updates request status (accept/reject)
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('PROFESSIONAL')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<MeetingRequestDto> updateRequestStatus(
             @PathVariable Long id,
             @RequestBody UpdateMeetingRequestDto updateDto) {
@@ -64,6 +68,7 @@ public class PendingRequestController {
     // Client cancels their request
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('CLIENT')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<?> cancelRequest(@PathVariable Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();

@@ -27,7 +27,7 @@ export const routes: Routes = [
     {
         path: 'client',
         canActivate: [authGuard, roleGuard],
-        data: { roles: ['ROLE_CLIENT'] },
+        data: { roles: ['CLIENT'] },
         children: [
             {path: '', component: ClientDashboardPageComponent},
             // {path: 'services', component: ClientServicesComponent}
@@ -56,6 +56,5 @@ export const routes: Routes = [
     //     ]
     // },
     
-    // Fallback
-    // {path: '**', redirectTo: '/home'}
+    
 ];

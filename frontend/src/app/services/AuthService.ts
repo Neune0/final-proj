@@ -13,23 +13,27 @@ export class AuthService {
   public currentUser$: Observable<User | null>;
   
   constructor(private http: HttpClient) {
+    console.log("auth service constructor called");
     this.currentUserSubject = new BehaviorSubject<User | null>(this.getUserFromStorage());
     this.currentUser$ = this.currentUserSubject.asObservable();
   }
   
   // Recupera l'utente dal localStorage
   private getUserFromStorage(): User | null {
+    console.log("getUserFromStorage method in auth service");
     const storedUser = localStorage.getItem('currentUser');
     return storedUser ? JSON.parse(storedUser) : null;
   }
   
   // Ottieni il valore corrente dell'utente
   public get currentUserValue(): User | null {
+    console.log("getcurrentUserValue method in auth service");
     return this.currentUserSubject.value;
   }
   
   // Esegui il login
   login(username: string, password: string): Observable<User> {
+    console.log("entered method login in authservice")
     return this.http.post<AuthResponse>(`${this.API_URL}/login`, { username, password })
       .pipe(
         map(response => {
@@ -55,6 +59,7 @@ export class AuthService {
   
   // Registra un nuovo client
   registerClient(registerData: RegisterRequest): Observable<string> {
+    console.log("entered register method in authservice");
     return this.http.post(`${this.API_URL}/register/client`, registerData, { responseType: 'text'})
       .pipe(
         tap(response => console.log("response in registrazione client: ",response)),
@@ -67,6 +72,7 @@ export class AuthService {
   
   // Registra un nuovo professionista
   registerProfessional(registerData: RegisterRequest): Observable<string> {
+    console.log("entered register professional method in authservice");
     return this.http.post<string>(`${this.API_URL}/register/professional`, registerData)
       .pipe(
         catchError(error => {
@@ -78,17 +84,20 @@ export class AuthService {
   
   // Logout
   logout(): void {
+    console.log("call logout in authservice")
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }
   
   // Verifica se l'utente è autenticato
   isAuthenticated(): boolean {
+    console.log("call isauthenticated in authservice");
     return !!this.currentUserValue;
   }
   
   // Verifica se l'utente ha un ruolo specifico
   hasRole(requiredRole: string | string[]): boolean {
+    console.log("call has role in authservice");
     const user = this.currentUserValue;
     if (!user) return false;
     
@@ -101,6 +110,7 @@ export class AuthService {
   
   // Ottieni il token
   getToken(): string | null {
+    console.log("call gettoken in authservice");
     return this.currentUserValue?.token || null;
   }
 }

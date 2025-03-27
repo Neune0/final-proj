@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/clients")
-@CrossOrigin
+@CrossOrigin(origins= "http://localhost:4200")
 public class ClientController {
 
     private final ClientService clientService;
@@ -23,6 +23,7 @@ public class ClientController {
     // Endpoint to get current client profile
     @GetMapping("/profile")
     @PreAuthorize("hasAuthority('CLIENT')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ClientProfileDto> getCurrentClientProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -33,6 +34,7 @@ public class ClientController {
     // Endpoint to update current client profile
     @PutMapping("/profile")
     @PreAuthorize("hasAuthority('CLIENT')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ClientProfileDto> updateClientProfile(@RequestBody UpdateClientProfileDto updateDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -43,6 +45,7 @@ public class ClientController {
     // Endpoint to update profile image
     @PutMapping("/profile/image")
     @PreAuthorize("hasAuthority('CLIENT')")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<ClientProfileDto> updateProfileImage(@RequestBody String profileImageBase64) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();

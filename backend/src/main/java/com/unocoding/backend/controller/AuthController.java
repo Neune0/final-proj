@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
     private final ClientService clientService;
@@ -28,6 +29,7 @@ public class AuthController {
     private final JwtTokenProvider tokenProvider;
 
     @PostMapping("/login")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<?> authenticateUser(@RequestBody AuthRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(
@@ -53,6 +55,7 @@ public class AuthController {
     }
 
     @PostMapping("/register/client")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<?> registerClient(@RequestBody RegisterRequest registerRequest) {
         try {
             clientService.registerClient(
@@ -70,6 +73,7 @@ public class AuthController {
     }
 
     @PostMapping("/register/professional")
+    @CrossOrigin(origins = "*")
     public ResponseEntity<?> registerProfessional(@RequestBody RegisterRequest registerRequest) {
         try {
             professionalService.registerProfessional(
