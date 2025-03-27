@@ -1,1 +1,142 @@
-<p>professional-dashboard-page works!</p>
+<!-- PROFESSIONAL DASHBOARD PAGE -->
+<div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="assets/img/Logo.png" alt="IT Marketplace" class="sidebar-logo">
+        <h4>IT Marketplace</h4>
+      </div>
+  
+      <div class="sidebar-profile">
+        <div class="profile-image">
+          <img [src]="professionalProfile.profileImage || 'assets/img/default-avatar.png'" alt="Profile">
+        </div>
+        <div class="profile-info">
+          <h5>{{ professionalProfile.firstName }} {{ professionalProfile.lastName }}</h5>
+          <span class="badge bg-success">Professional</span>
+        </div>
+      </div>
+  
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active">
+            <a routerLink="/professional">
+              <i class="bi bi-house-door-fill"></i>
+              <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/professional/calendar">
+              <i class="bi bi-calendar-event"></i>
+              <span>Agenda</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/professional/requests">
+              <i class="bi bi-envelope-open"></i>
+              <span>Richieste</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/professional/messages">
+              <i class="bi bi-chat-dots"></i>
+              <span>Messaggi</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/professional/services">
+              <i class="bi bi-gear"></i>
+              <span>Servizi Offerti</span>
+            </a>
+          </li>
+          <li>
+            <a routerLink="/professional/payments">
+              <i class="bi bi-wallet2"></i>
+              <span>Pagamenti</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+  
+      <div class="sidebar-footer">
+        <button (click)="logout()" class="btn btn-outline-danger btn-sm">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </button>
+      </div>
+    </aside>
+  
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="user-actions">
+          <div class="notification-icon">
+            <i class="bi bi-bell-fill"></i>
+            <span class="notification-badge" *ngIf="pendingRequests.length > 0">{{ pendingRequests.length }}</span>
+          </div>
+          <div class="user-info">
+            <div class="user-details">
+              <h6>{{ professionalProfile.firstName }} {{ professionalProfile.lastName }}</h6>
+              <span>{{ professionalProfile.email }}</span>
+            </div>
+            <div class="user-avatar">
+              <img [src]="professionalProfile.profileImage || 'assets/img/default-avatar.png'" alt="User Avatar">
+            </div>
+          </div>
+        </div>
+      </header>
+  
+      <div class="dashboard-content">
+        <!-- Welcome Card -->
+        <section class="welcome-card">
+          <div class="row">
+            <div class="col-md-8">
+              <h2>Benvenuto, {{ professionalProfile.firstName }}!</h2>
+              <p>Controlla le tue richieste, aggiorna la tua agenda e gestisci i tuoi servizi.</p>
+            </div>
+            <div class="col-md-4 text-center d-none d-md-block">
+              <img src="assets/img/welcome-professional.svg" alt="Welcome" class="welcome-image">
+            </div>
+          </div>
+        </section>
+  
+        <!-- Stats Cards -->
+        <section class="stats-section">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="stats-card">
+                <div class="stats-icon">
+                  <i class="bi bi-briefcase"></i>
+                </div>
+                <div class="stats-info">
+                  <h4>{{ activeProjects }}</h4>
+                  <p>Progetti attivi</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stats-card">
+                <div class="stats-icon">
+                  <i class="bi bi-hourglass-split"></i>
+                </div>
+                <div class="stats-info">
+                  <h4>{{ hoursThisMonth }}</h4>
+                  <p>Ore vendute</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="stats-card">
+                <div class="stats-icon">
+                  <i class="bi bi-star-fill"></i>
+                </div>
+                <div class="stats-info">
+                  <h4>{{ averageRating }}</h4>
+                  <p>Valutazione media</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>

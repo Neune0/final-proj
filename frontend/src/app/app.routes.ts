@@ -7,6 +7,7 @@ import { AdminDashboardPageComponent } from './pages/admin-dashboard-page/admin-
 
 import { authGuard } from './guards/authGuard';
 import { roleGuard } from './guards/roleGuard';
+import { ProfessionalDashboardPageComponent } from './pages/professional-dashboard-page/professional-dashboard-page.component';
 
 export const routes: Routes = [
   // 📂 Rotte pubbliche
@@ -15,6 +16,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   { path: 'register', component: RegisterPageComponent },
   { path: 'dashboard test', component: AdminDashboardPageComponent },
+  { path: 'dashboard professional test', component: ProfessionalDashboardPageComponent },
 
   // 🔒 Area Clienti
   {
