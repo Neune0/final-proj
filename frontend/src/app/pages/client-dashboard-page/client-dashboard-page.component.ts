@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ClientService } from '../../services/client.service';
-import { ProfessionalService } from '../../services/professional.service';
+import { ClientService } from '../../services/ClientService';
+import { ProfessionalService } from '../../services/ProfessionalService';
 import { AuthService } from '../../services/AuthService';
 @Component({
   selector: 'app-client-dashboard-page',
