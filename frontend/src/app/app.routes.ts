@@ -5,6 +5,7 @@ import { authGuard } from './guards/authGuard';
 import { roleGuard } from './guards/roleGuard';
 import { RegisterPageComponent } from './pages/register-page/register-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
+import { ClientDashboardPageComponent } from './pages/client-dashboard-page/client-dashboard-page.component';
 // import { UnauthorizedComponent } from './shared/components/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
@@ -13,7 +14,6 @@ export const routes: Routes = [
     {path: 'register', component: RegisterPageComponent},
     {path: 'home', component: HomePageComponent},
     {path: 'login', component: LoginPageComponent},
-    // {path: 'register', component: RegisterPageComponent},
     // {path: 'unauthorized', component: UnauthorizedComponent},
     
     // Route protette per utenti autenticati
@@ -24,15 +24,15 @@ export const routes: Routes = [
     // },
     
     // Route protette per clienti
-    // {
-    //     path: 'client',
-    //     canActivate: [authGuard, roleGuard],
-    //     data: { roles: ['ROLE_CLIENT'] },
-    //     children: [
-    //         {path: '', component: ClientDashboardComponent},
-    //         {path: 'services', component: ClientServicesComponent}
-    //     ]
-    // },
+    {
+        path: 'client',
+        canActivate: [authGuard, roleGuard],
+        data: { roles: ['ROLE_CLIENT'] },
+        children: [
+            {path: '', component: ClientDashboardPageComponent},
+            // {path: 'services', component: ClientServicesComponent}
+        ]
+    },
     
     // Route protette per professionisti
     // {
