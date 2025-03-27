@@ -8,7 +8,7 @@ import { RegisterRequest } from '../../models/Auth';
 @Component({
   selector: 'app-register-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterLink],
+  imports: [CommonModule, FormsModule, RouterLink,],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.css',
 })
@@ -70,13 +70,13 @@ export class RegisterPageComponent {
 
   private registerClient(data: RegisterRequest): void {
     this.authService.registerClient(data).subscribe({
-      next: () => {
-        this.successMessage =
-          'Registrazione completata con successo. Ora puoi accedere.';
+      next: (response) => {
+        console.log('Registration successful, response:', response);
+        this.successMessage = 'Registrazione completata con successo. Ora puoi accedere.';
         this.loading = false;
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
+        
+        this.router.navigateByUrl('/login');
+        
       },
       error: (error) => {
         this.errorMessage =

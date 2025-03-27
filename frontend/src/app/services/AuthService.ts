@@ -55,8 +55,9 @@ export class AuthService {
   
   // Registra un nuovo client
   registerClient(registerData: RegisterRequest): Observable<string> {
-    return this.http.post<string>(`${this.API_URL}/register/client`, registerData)
+    return this.http.post(`${this.API_URL}/register/client`, registerData, { responseType: 'text'})
       .pipe(
+        tap(response => console.log("response in registrazione client: ",response)),
         catchError(error => {
           console.error('Client registration failed:', error);
           return throwError(() => new Error(error.error || 'Registration failed'));
