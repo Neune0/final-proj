@@ -1,0 +1,192 @@
+<app-nav-bar></app-nav-bar>
+  
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="display-4 fw-bold mb-3">La connessione perfetta tra <span class="text-primary">professionisti IT</span> e <span class="text-primary">clienti</span></h1>
+          <p class="lead mb-4">Trova esperti qualificati per i tuoi progetti tecnologici o offri le tue competenze a chi ne ha bisogno. Semplice, veloce e professionale.</p>
+          <div class="d-flex gap-3">
+            <a routerLink="/register" class="btn btn-primary btn-lg">Inizia Ora</a>
+            <a routerLink="/about" class="btn btn-outline-secondary btn-lg">Scopri di Più</a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img src="assets/img/Logo.png" alt="IT Professionals" class="img-fluid hero-image">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Come Funziona -->
+  <section class="how-it-works py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Come Funziona</h2>
+        <p class="section-subtitle">Tre semplici passi per connettere talenti e opportunità</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="step-card text-center">
+            <div class="step-icon">
+              <i class="bi bi-person-plus-fill"></i>
+              <span class="step-number">1</span>
+            </div>
+            <h3>Crea un Profilo</h3>
+            <p>Registrati come cliente o professionista e crea il tuo profilo personalizzato.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="step-card text-center">
+            <div class="step-icon">
+              <i class="bi bi-search"></i>
+              <span class="step-number">2</span>
+            </div>
+            <h3>Trova o Offri Servizi</h3>
+            <p>Cerca tra i migliori professionisti IT o offri le tue competenze sul mercato.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="step-card text-center">
+            <div class="step-icon">
+              <i class="bi bi-check2-circle"></i>
+              <span class="step-number">3</span>
+            </div>
+            <h3>Collabora e Cresci</h3>
+            <p>Connettiti, collabora e completa progetti di successo insieme.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Servizi In Evidenza -->
+  <section class="featured-services py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Servizi In Evidenza</h2>
+        <p class="section-subtitle">Scopri i servizi IT più richiesti sulla nostra piattaforma</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3" *ngFor="let service of featuredServices">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="bi" [ngClass]="service.icon"></i>
+            </div>
+            <h3>{{service.title}}</h3>
+            <p>{{service.description}}</p>
+            <a routerLink="/services" class="service-link">Scopri di più <i class="bi bi-arrow-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Per i Professionisti e Clienti -->
+  <section class="for-users py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="user-card client-card">
+            <h3><i class="bi bi-building me-2"></i>Per i Clienti</h3>
+            <ul class="feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Accesso a professionisti IT qualificati e verificati</li>
+              <li><i class="bi bi-check-circle-fill"></i> Pubblica il tuo progetto e ricevi proposte personalizzate</li>
+              <li><i class="bi bi-check-circle-fill"></i> Recensioni e portfolio per valutare le competenze</li>
+              <li><i class="bi bi-check-circle-fill"></i> Pagamenti sicuri e supporto clienti dedicato</li>
+            </ul>
+            <a routerLink="/register" class="btn btn-outline-primary">Registrati come Cliente</a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="user-card professional-card">
+            <h3><i class="bi bi-laptop me-2"></i>Per i Professionisti</h3>
+            <ul class="feature-list">
+              <li><i class="bi bi-check-circle-fill"></i> Mostra le tue competenze e crea un portfolio completo</li>
+              <li><i class="bi bi-check-circle-fill"></i> Trova nuovi clienti e progetti interessanti</li>
+              <li><i class="bi bi-check-circle-fill"></i> Gestisci il tuo tempo e scegli i progetti che ti interessano</li>
+              <li><i class="bi bi-check-circle-fill"></i> Pagamenti puntuali e supporto professionale</li>
+            </ul>
+            <a routerLink="/register" class="btn btn-outline-primary">Registrati come Professionista</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Testimonianze -->
+  <section class="testimonials py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Cosa Dicono di Noi</h2>
+        <p class="section-subtitle">Le esperienze di chi ha già utilizzato la nostra piattaforma</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-4" *ngFor="let testimonial of testimonials">
+          <div class="testimonial-card">
+            <div class="quote-icon">
+              <i class="bi bi-quote"></i>
+            </div>
+            <p class="testimonial-text">"{{testimonial.quote}}"</p>
+            <div class="testimonial-author">
+              <img [src]="testimonial.avatar" alt="{{testimonial.author}}" class="testimonial-avatar">
+              <div>
+                <h5>{{testimonial.author}}</h5>
+                <p>{{testimonial.role}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- FAQ -->
+  <section class="faq py-5">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Domande Frequenti</h2>
+        <p class="section-subtitle">Tutto quello che devi sapere sulla nostra piattaforma</p>
+      </div>
+      
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item" *ngFor="let faq of faqs; let i = index">
+          <h2 class="accordion-header">
+            <button 
+              class="accordion-button" 
+              [ngClass]="{'collapsed': !faq.isOpen}"
+              type="button" 
+              (click)="toggleFaq(faq)">
+              {{faq.question}}
+            </button>
+          </h2>
+          <div class="accordion-collapse" [ngClass]="{'show': faq.isOpen}">
+            <div class="accordion-body">
+              {{faq.answer}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA -->
+  <section class="cta-section py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 class="mb-3">Pronto a iniziare?</h2>
+          <p class="lead mb-0">Unisciti oggi alla nostra community di professionisti IT e clienti.</p>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+          <a routerLink="/register" class="btn btn-primary btn-lg">Registrati ora</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<app-footer></app-footer>

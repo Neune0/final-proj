@@ -1,0 +1,56 @@
+.navbar {
+    padding: 15px 0;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-brand img {
+    transition: all 0.3s ease;
+  }
+  
+  .navbar .btn {
+    font-weight: 500;
+  }
+  
+  
+/* Footer */
+.footer {
+    background-color: #212529;
+  }
+  
+  .footer-links,
+  .footer-contact {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-links li,
+  .footer-contact li {
+    margin-bottom: 0.75rem;
+  }
+  
+  .footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-links a:hover {
+    color: white;
+  }
+  
+  .footer-contact li {
+    color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    align-items: center;
+  }
+  
+  .social-icons a {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.25rem;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: white;
+  }
+  

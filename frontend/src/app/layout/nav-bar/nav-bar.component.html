@@ -1,0 +1,32 @@
+<header class="navbar navbar-expand-lg navbar-light fixed-top bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" routerLink="/">
+        <img src="assets/img/Logo.png" alt="IT Marketplace Logo" height="100">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link cursor-pointer" routerLink="/login">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/services">Servizi</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/professionals">Professionisti</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" activatedRoute  routerLink="/about">Chi Siamo</a>
+          </li>
+          <li class="nav-item ms-lg-3" >
+            <button routerLink="/login" class="btn btn-outline-primary">Accedi</button>
+          </li>
+          <li class="nav-item ms-2">
+            <a class="btn btn-primary" routerLink="/register">Registrati</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>

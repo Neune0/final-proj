@@ -1,0 +1,15 @@
+.navbar {
+    padding: 15px 0;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-brand img {
+    transition: all 0.3s ease;
+  }
+  
+  .navbar .btn {
+    font-weight: 500;
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
