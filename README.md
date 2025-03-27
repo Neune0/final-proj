@@ -62,3 +62,9 @@ I dati saranno scambiati nel formato **JSON**, e le richieste HTTP verranno gest
 - Sviluppare un’applicazione web moderna, robusta e professionale.
 - Offrire un’interfaccia utente intuitiva e una gestione dati sicura ed efficiente.
 - Creare una base solida per futuri sviluppi (es. applicazioni mobile, estensioni, nuove funzionalità).
+
+## Team
+
+- Stefano Raimondi: [Linkedin](https://www.linkedin.com/in/stefano-raimondi-prog/)
+- Luigi DiPuorto: [Linkedin](https://www.linkedin.com/in/luigi-di-puorto-046136318/)
+- Raimondo Masala: [Linkedin](https://www.linkedin.com/in/raimondo-masala-9954b826a/)
